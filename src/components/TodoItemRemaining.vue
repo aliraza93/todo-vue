@@ -4,6 +4,10 @@
 
 <script>
 export default {
-    props: ['remaining']
+    computed: {
+        remaining() {
+            return this.$store.getters.remaining
+        },
+    }
 }
 </script>

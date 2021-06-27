@@ -13,11 +13,15 @@
 
 <script>
 export default {
-    props: ['showClearCompletedButton'],
+    computed: {
+        showClearCompletedButton() {
+            return this.$store.getters.showClearCompletedButton
+        }
+    },
 
     methods: {
         clearCompleted() {
-            eventBus.$emit('clearCompleted')
+            this.$store.dispatch('clearCompleted')
         }
     }
 

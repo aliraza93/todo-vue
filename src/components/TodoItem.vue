@@ -54,9 +54,9 @@ export default {
 
     directives: {
         focus: {
-        inserted: function(el) {
-            el.focus()
-        }
+            inserted: function(el) {
+                el.focus()
+            }
         }
     },
 
@@ -71,15 +71,12 @@ export default {
                 this.title = this.beforeEditCache
             }
             this.editing = false
-            eventBus.$emit('finishedEditing', {
-                    'index': this.index,
-                    'todo': {
-                        id: this.id,
-                        title: this.title,
-                        completed: this.completed,
-                        editing: this.editing
-                        }
-                    })
+            this.$store.dispatch('updateTodo', {
+                id: this.id,
+                title: this.title,
+                completed: this.completed,
+                editing: this.editing
+            })
         },
 
         cancelEdit() {
@@ -88,7 +85,7 @@ export default {
         },
         
         removeTodo(index) {
-            eventBus.$emit('removedTodo', index)
+            this.$store.dispatch('deleteTodo', index)
         }
     }
 }

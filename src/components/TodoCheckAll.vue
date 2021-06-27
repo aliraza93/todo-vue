@@ -11,11 +11,15 @@
 
 <script>
 export default {
-    props: ['anyRemaining'],
+    computed: {
+        anyRemaining() {
+            return this.$store.getters.anyRemaining
+        },
+    },
 
     methods: {
         allChecked() {
-            eventBus.$emit('check-all-changed', this.anyRemaining)
+            this.$store.dispatch('checkAll', event.target.checked)
         }
     }
 }
