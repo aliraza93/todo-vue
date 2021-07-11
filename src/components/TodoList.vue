@@ -72,6 +72,7 @@ export default {
   },
   
   created() {
+    this.$store.dispatch('retrieveTodos')
     eventBus.$on('removedTodo', (index) => this.removeTodo(index))
     eventBus.$on('finishedEditing', (data) => this.finishedEdit(data))
     eventBus.$on('check-all-changed', (checked) => this.checkAllTodos(checked))
