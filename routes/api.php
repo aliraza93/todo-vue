@@ -16,15 +16,16 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    }); 
+    Route::post('/logout', [AuthController::class, 'logout']);
+    
+    Route::resource('todos', TodosController::class);
+    Route::patch('/todosCheckAll', [TodosController::class, 'checkAll']);
+    Route::delete('/todosDeleteCompleted', [TodosController::class, 'deleteCompleted']);
 });
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
-Route::middleware('auth:api')->post('/logout', [AuthController::class, 'logout']);
-
-
-Route::resource('todos', TodosController::class);
-Route::patch('/todosCheckAll', [TodosController::class, 'checkAll']);
-Route::delete('/todosDeleteCompleted', [TodosController::class, 'deleteCompleted']);
